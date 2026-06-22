@@ -175,19 +175,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const contentW = maxX - minX;
             const contentH = maxY - minY;
             
-            // 將畫布固定為高解析度的正方形，保證 RWD 視覺一致性與高品質
-            canvas.width = 1000;
-            canvas.height = 1000;
+            // 動態設定畫布比例，使其緊貼人物，這樣在手機直向時就能往下延伸放大！
+            // 預留約 3% 的微小邊距即可
+            const paddingW = contentW * 0.03;
+            const paddingH = contentH * 0.03;
+            
+            const logicalW = contentW + paddingW * 2;
+            const logicalH = contentH + paddingH * 2;
+            
+            // 為了保持著色時的高品質解析度，將最大邊放大至 1200
+            const hiResScale = 1200 / Math.max(logicalW, logicalH);
+            
+            canvas.width = logicalW * hiResScale;
+            canvas.height = logicalH * hiResScale;
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // 將人物主體以 Aspect Fit 縮放至 Canvas 內 (佔 98% 大小，使人物放得更大)
-            const targetMax = 980; 
-            const scale = Math.min(targetMax / contentW, targetMax / contentH);
-            const drawW = contentW * scale;
-            const drawH = contentH * scale;
-            const dx = (canvas.width - drawW) / 2;
-            const dy = (canvas.height - drawH) / 2;
+            const drawW = contentW * hiResScale;
+            const drawH = contentH * hiResScale;
+            const dx = paddingW * hiResScale;
+            const dy = paddingH * hiResScale;
             
             ctx.drawImage(img, minX, minY, contentW, contentH, dx, dy, drawW, drawH);
             

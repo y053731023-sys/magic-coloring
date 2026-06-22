@@ -383,7 +383,7 @@ body {
     position: relative;
     width: 100%;
     max-width: 100%;
-    height: auto;
+    height: 100%;
     max-height: 100%;
     background: white;
     border-radius: var(--radius-md);
@@ -471,7 +471,7 @@ canvas {
     }
     
     canvas {
-        max-height: 75vh; /* 移除標題後，讓畫布可以使用更多高度 */
+        max-height: 100%; /* 讓畫布撐滿外層容器 */
     }
     
     /* 抽屜式側欄 */
@@ -529,7 +529,7 @@ canvas {
     }
     
     canvas {
-        max-height: 80vh; /* 手機上移除標題後畫布進一步放大 */
+        max-height: 100%; /* 手機上移除標題後畫布進一步放大 */
     }
     
     .sidebar {

@@ -1,4 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Firebase 雲端即時同步設定 ---
+    const firebaseConfig = {
+        // 請在此處貼上 Firebase 專案的金鑰設定
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+    
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const db = firebase.database();
+
+    function syncStateToFirebase() {
+        if (firebaseConfig.apiKey === "YOUR_API_KEY") return; // 尚未設定金鑰則略過
+        
+        const payload = {
+            currentImage: currentImageSrc,
+            timestamp: Date.now(),
+            zones: currentConfig.zones.map(z => ({
+                id: z.id,
+                name: z.name,
+                colorHex: "#" + (1 << 24 | z.currentColor.r << 16 | z.currentColor.g << 8 | z.currentColor.b).toString(16).slice(1).toUpperCase()
+            }))
+        };
+        db.ref('magic_state').set(payload).catch(err => console.error("Firebase error:", err));
+    }
+
     // --- 畫作區塊與顏色配置 ---
     const IMAGE_CONFIGS = {
         "著色版_boy_0.png": {
@@ -210,6 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // 渲染畫面
             render();
+            syncStateToFirebase();
             loadingOverlay.classList.remove('active');
         };
         
@@ -254,6 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             render();
+            syncStateToFirebase();
         }
     }
 
@@ -337,6 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentConfig = JSON.parse(JSON.stringify(IMAGE_CONFIGS[currentImageSrc]));
                 saveState();
                 render();
+                syncStateToFirebase();
             }
         });
 
@@ -492,6 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 matchedZone.currentColor = { ...selectedColor };
                 saveState();
                 render();
+                syncStateToFirebase();
             }
         }
     }

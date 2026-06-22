@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Firebase 雲端即時同步設定 ---
     const firebaseConfig = {
-        // 請在此處貼上 Firebase 專案的金鑰設定 (必須與 app.js 的金鑰一模一樣)
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-        databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_PROJECT_ID.appspot.com",
-        messagingSenderId: "YOUR_SENDER_ID",
-        appId: "YOUR_APP_ID"
+        apiKey: "AIzaSyAnSci3QtfRwtjWDPYp4NcG3k2vmQzOmBE",
+        authDomain: "magic-coloring-a8c59.firebaseapp.com",
+        databaseURL: "https://magic-coloring-a8c59-default-rtdb.firebaseio.com",
+        projectId: "magic-coloring-a8c59",
+        storageBucket: "magic-coloring-a8c59.firebasestorage.app",
+        messagingSenderId: "66585416550",
+        appId: "1:66585416550:web:3af46ad2e7ee62de4d2ea7",
+        measurementId: "G-MBCL3XTWBT"
     };
     
     const connStatus = document.getElementById('conn-status');

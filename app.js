@@ -22,11 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const payload = {
             currentImage: currentImageSrc,
             timestamp: Date.now(),
-            zones: currentConfig.zones.map(z => ({
-                id: z.id,
-                name: z.name,
-                colorHex: "#" + (1 << 24 | z.currentColor.r << 16 | z.currentColor.g << 8 | z.currentColor.b).toString(16).slice(1).toUpperCase()
-            }))
+            selectedColorHex: "#" + (1 << 24 | selectedColor.r << 16 | selectedColor.g << 8 | selectedColor.b).toString(16).slice(1).toUpperCase()
         };
         db.ref('magic_state').set(payload).catch(err => console.error("Firebase error:", err));
     }
@@ -125,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 更新顯示當前色彩
     function updateColorDisplay(hex) {
         selectedColor = hexToRgb(hex);
+        syncStateToFirebase(); // 選取顏色當下立即同步到 Firebase
     }
 
     function hexToRgb(hex) {

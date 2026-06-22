@@ -42,21 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
             currentImageLabel.textContent = data.currentImage;
         }
         
-        // 渲染選色清單 (隱密模式)
+        // 渲染單一顏色指示燈 (隱密模式)
         zoneList.innerHTML = '';
-        data.zones.forEach(zone => {
-            const li = document.createElement('li');
-            li.className = 'zone-item';
-            
-            // 如果是預設的白色 (#FFFFFF)，代表還沒塗色，燈泡關閉
-            const isUncolored = (zone.colorHex === "#FFFFFF");
-            const lightColor = isUncolored ? "#000" : zone.colorHex;
-            const isOnClass = isUncolored ? "" : "on";
-            
-            li.innerHTML = `
-                <div class="color-preview ${isOnClass}" style="background-color: ${lightColor}; --light-color: ${lightColor};"></div>
-            `;
-            zoneList.appendChild(li);
-        });
+        
+        const lightColor = data.selectedColorHex || "#000";
+        const isOnClass = (lightColor === "#000") ? "" : "on";
+        
+        const li = document.createElement('li');
+        li.className = 'zone-item';
+        li.innerHTML = `
+            <div class="color-preview ${isOnClass}" style="background-color: ${lightColor}; --light-color: ${lightColor};"></div>
+        `;
+        zoneList.appendChild(li);
     });
 });

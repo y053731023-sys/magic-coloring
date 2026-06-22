@@ -448,17 +448,7 @@ canvas {
     }
     
     .header {
-        padding: 10px 15px;
-        align-items: center;
-        text-align: center;
-    }
-    
-    .header h1 {
-        font-size: 1.5rem;
-    }
-    
-    .header p {
-        font-size: 0.8rem;
+        display: none; /* 在平板/手機隱藏標題以節省空間 */
     }
     
     .image-selector-top {
@@ -481,7 +471,7 @@ canvas {
     }
     
     canvas {
-        max-height: 60vh; /* 畫布在平板下可以放得更大 */
+        max-height: 75vh; /* 移除標題後，讓畫布可以使用更多高度 */
     }
     
     /* 抽屜式側欄 */
@@ -534,20 +524,12 @@ canvas {
 }
 
 @media (max-width: 600px) {
-    .header h1 {
-        font-size: 1.2rem;
-    }
-    
-    .header p {
-        font-size: 0.75rem;
-    }
-    
     .main-content {
-        height: calc(100% - 100px);
+        height: calc(100% - 60px); /* 扣除頂部按鈕的高度即可 */
     }
     
     canvas {
-        max-height: 55vh; /* 手機上沒有了阻礙，畫布版面極大化！ */
+        max-height: 80vh; /* 手機上移除標題後畫布進一步放大 */
     }
     
     .sidebar {

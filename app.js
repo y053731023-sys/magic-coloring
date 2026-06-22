@@ -181,8 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // 將人物主體以 Aspect Fit 縮放至 Canvas 內 (佔 92% 大小，預留 8% 邊距，使人物變大且置中)
-            const targetMax = 920; 
+            // 將人物主體以 Aspect Fit 縮放至 Canvas 內 (佔 98% 大小，使人物放得更大)
+            const targetMax = 980; 
             const scale = Math.min(targetMax / contentW, targetMax / contentH);
             const drawW = contentW * scale;
             const drawH = contentH * scale;

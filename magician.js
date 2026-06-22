@@ -54,9 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const isOnClass = isUncolored ? "" : "on";
             
             li.innerHTML = `
-                <div class="zone-info">
-                    <span>${zone.name}</span>
-                </div>
                 <div class="color-preview ${isOnClass}" style="background-color: ${lightColor}; --light-color: ${lightColor};"></div>
             `;
             zoneList.appendChild(li);

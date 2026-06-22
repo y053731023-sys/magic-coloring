@@ -11,12 +11,13 @@
             padding: 0;
         }
         body {
-            background-color: #000000; /* 全黑背景 */
+            background-color: #000000;
             display: flex;
-            align-items: center;
+            align-items: flex-end; /* 將內容對齊到最下方 */
             justify-content: center;
             min-height: 100vh;
             overflow: hidden;
+            padding-bottom: 5px; /* 距離底部保留一點點微小的空間 */
         }
         
         /* 隱藏所有無關的文字與連線狀態 */
@@ -35,27 +36,18 @@
         .zone-list {
             list-style: none;
             display: flex;
-            flex-direction: column; /* 垂直排列燈號 */
-            gap: 30px;
+            flex-direction: row; /* 水平排列燈號 */
+            gap: 15px; /* 燈泡之間的間距 */
         }
 
         .zone-item {
             display: flex;
             align-items: center;
-            gap: 15px;
-        }
-
-        .zone-info {
-            /* 文字極度暗色，只有仔細看才看得到，隱密性極高 */
-            color: #1a1a1a;
-            font-size: 0.9rem;
-            width: 60px;
-            text-align: right;
         }
 
         .color-preview {
-            width: 16px; /* 非常小的燈泡 */
-            height: 16px;
+            width: 8px; /* 極度微小的燈泡 */
+            height: 8px;
             border-radius: 50%;
             background-color: #000; /* 預設關燈 */
             transition: all 0.3s ease;
@@ -85,6 +77,6 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
-    <script src="magician.js?v=3"></script>
+    <script src="magician.js?v=4"></script>
 </body>
 </html>

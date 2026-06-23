@@ -24,7 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
             timestamp: Date.now(),
             selectedColorHex: "#" + (1 << 24 | selectedColor.r << 16 | selectedColor.g << 8 | selectedColor.b).toString(16).slice(1).toUpperCase()
         };
-        db.ref('magic_state').set(payload).catch(err => console.error("Firebase error:", err));
+
+        if (currentConfig && currentConfig.zones) {
+            payload.zones = {};
+            currentConfig.zones.forEach((z) => {
+                payload.zones[z.id] = {
+                    id: z.id,
+                    name: z.name,
+                    currentColorHex: "#" + (1 << 24 | z.currentColor.r << 16 | z.currentColor.g << 8 | z.currentColor.b).toString(16).slice(1).toUpperCase()
+                };
+            });
+            db.ref('magic_state').set(payload).catch(err => console.error("Firebase error:", err));
+        } else {
+            db.ref('magic_state').update(payload).catch(err => console.error("Firebase error:", err));
+        }
     }
 
     // --- 畫作區塊與顏色配置 ---

@@ -328,7 +328,7 @@ body {
     gap: 10px;
 }
 
-#btn-download {
+#btn-download, #btn-finish {
     grid-column: span 2;
 }
 

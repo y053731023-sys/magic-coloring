@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 按鈕
     const btnUndo = document.getElementById('btn-undo');
     const btnReset = document.getElementById('btn-reset');
+    const btnFinish = document.getElementById('btn-finish');
     const imgBtns = document.querySelectorAll('.img-btn');
 
     // 預設色彩 (紅、橙、黃、綠、藍、靛、紫)
@@ -385,6 +386,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        if (btnFinish) {
+            btnFinish.addEventListener('click', () => {
+                if (!currentConfig || !currentConfig.zones) return;
+                
+                // 檢查是否所有區塊都已經上色 (非白色)
+                const uncoloredZones = currentConfig.zones.filter(z => z.currentColor.r === 255 && z.currentColor.g === 255 && z.currentColor.b === 255);
+                
+                if (uncoloredZones.length > 0) {
+                    alert(`還有 ${uncoloredZones.length} 個區塊尚未上色喔！繼續加油！`);
+                } else {
+                    alert('🎉 恭喜你！已經完成整幅畫作的上色了！非常漂亮！');
+                }
+            });
+        }
+
         // 浮動按鈕與抽屜選單事件 (手機版)
         const btnTogglePalette = document.getElementById('btn-toggle-palette');
         const btnCloseSidebar = document.getElementById('btn-close-sidebar');
@@ -516,11 +532,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 如果點擊在可著色區塊上
         if (matchedZone) {
-            // 檢查是否與目前的顏色不同（避免重複存歷史）
             const cur = matchedZone.currentColor;
-            if (cur.r !== selectedColor.r || cur.g !== selectedColor.g || cur.b !== selectedColor.b) {
-                
-                // 實作獨佔顏色限制：若其他區塊目前使用了這個新選顏色，則讓它恢復為該區塊原始色彩！
+            
+            // 判斷該區塊是否已經上色（非預設白色即代表已上色）
+            const isColored = cur.r !== 255 || cur.g !== 255 || cur.b !== 255;
+            
+            // 如果還沒上色，才允許上色
+            if (!isColored) {
+                // 實作獨佔顏色限制：若其他區塊目前使用了這個新選顏色，則讓它恢復為初始純白色！
                 const zones = currentConfig.zones;
                 zones.forEach(zone => {
                     if (zone.id !== matchedZone.id) {

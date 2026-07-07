@@ -297,4 +297,16 @@ document.addEventListener('DOMContentLoaded', () => {
             zonesColorList.innerHTML = '<li class="zone-color-row">尚未取得各區塊資料</li>';
         }
     });
+
+    // 儲存圖片按鈕事件
+    const saveImageBtn = document.getElementById('save-image-btn');
+    if (saveImageBtn) {
+        saveImageBtn.addEventListener('click', () => {
+            if (!syncCanvas || syncCanvas.width === 0) return;
+            const link = document.createElement('a');
+            link.download = 'magic_painting.png';
+            link.href = syncCanvas.toDataURL('image/png');
+            link.click();
+        });
+    }
 });
